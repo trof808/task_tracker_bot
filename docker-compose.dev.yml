@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  tracker_db:
+    image: postgres:latest
+    env_file:
+      - .env.db
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  tracker_bot:
+    build: .
+    env_file:
+      - .env
+    depends_on:
+      - tracker_db
+
+volumes:
+  db_data:
